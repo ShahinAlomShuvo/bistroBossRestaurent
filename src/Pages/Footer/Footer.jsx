@@ -1,8 +1,8 @@
 const Footer = () => {
   return (
     <div>
-      <footer className='footer  bg-neutral text-white  gap-0 flex justify-evenly '>
-        <aside className='bg-gray-600 py-10   flex-1'>
+      <footer className='footer  bg-[#111827] text-white  gap-0 flex justify-evenly '>
+        <aside className='bg-[#1F2937] py-10   flex-1'>
           <h2 className='text-3xl font-semibold mx-auto'>CONTACT US</h2>
           <p className='mx-auto text-center text-base'>
             123 ABS Street, Uni 21, Bangladesh
@@ -15,9 +15,12 @@ const Footer = () => {
             Sat - Sun: 10:00 - 23:00
           </p>
         </aside>
-        <nav className='flex-1  bg-blue-950 '>
-          <header className='footer-title mx-auto'>Social</header>
-          <div className='grid grid-flow-col gap-4'>
+        <nav className='flex-1  py-10  '>
+          <header className=' mx-auto text-3xl font-semibold text-white'>
+            Social
+          </header>
+          <p className='mx-auto text-base'>Join us on social media</p>
+          <div className='grid grid-flow-col gap-4 mx-auto'>
             <a>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
