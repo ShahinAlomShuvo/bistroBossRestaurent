@@ -1,8 +1,13 @@
-const RecommendsFoodCard = ({ recommend }) => {
-  const { image, name, recipe } = recommend;
+const RecommendsFoodCard = ({ items }) => {
+  const { image, name, recipe, price } = items;
   return (
     <div className='card  bg-base-100 shadow-xl'>
-      <img src={image} className='rounded-xl' />
+      <div className='relative'>
+        <img src={image} className='rounded-xl w-full' />
+        <h2 className='absolute bg-slate-900 px-4  py-2 text-white rounded right-4 top-4'>
+          ${price}
+        </h2>
+      </div>
 
       <div className='card-body items-center text-center'>
         <h2 className='card-title'>{name}</h2>

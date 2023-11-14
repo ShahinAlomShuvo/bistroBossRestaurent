@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
 import Card from "../../Shared/Card";
 import SectionTitle from "../../Shared/SectionTitle";
+import useMenu from "../../Hooks/useMenu";
 
 const OurMenu = () => {
-  const [menus, setMenus] = useState([]);
+  const [menus] = useMenu();
+  const popularMenu = menus.filter(
+    (popularData) => popularData.category === "popular"
+  );
+
+  /* const [menus, setMenus] = useState([]);
 
   useEffect(() => {
     fetch("/menu.json")
@@ -14,7 +19,7 @@ const OurMenu = () => {
         );
         setMenus(popularMenu);
       });
-  }, []);
+  }, []); */
 
   return (
     <div>
@@ -23,7 +28,7 @@ const OurMenu = () => {
         heading={"FROM OUR MENU"}
       ></SectionTitle>
       <div className='container mx-auto grid md:grid-cols-2 gap-16 my-20'>
-        {menus?.map((menu) => (
+        {popularMenu?.map((menu) => (
           <Card key={menu._id} menu={menu}></Card>
         ))}
       </div>

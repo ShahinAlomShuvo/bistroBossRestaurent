@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import RecommendsFoodCard from "./RecommendsFoodCard";
 import SectionTitle from "../../Shared/SectionTitle";
+import useMenu from "../../Hooks/useMenu";
 
 const ChefRecommends = () => {
-  const [recommends, setRecommends] = useState([]);
+  const [menu] = useMenu();
+  const chefRecommends = menu.slice(1, 4);
+
+  /* const [recommends, setRecommends] = useState([]);
 
   useEffect(() => {
     fetch("/menu.json")
@@ -12,7 +16,7 @@ const ChefRecommends = () => {
         const chefRecommends = data.slice(1, 4);
         setRecommends(chefRecommends);
       });
-  }, []);
+  }, []); */
 
   return (
     <div className='mt-10 mb-20'>
@@ -21,10 +25,10 @@ const ChefRecommends = () => {
         subHeading={"---Should Try---"}
       ></SectionTitle>
       <div className='grid md:grid-cols-3 gap-8 container mx-auto'>
-        {recommends?.map((recommend) => (
+        {chefRecommends?.map((recommend) => (
           <RecommendsFoodCard
             key={recommend._id}
-            recommend={recommend}
+            items={recommend}
           ></RecommendsFoodCard>
         ))}
       </div>
