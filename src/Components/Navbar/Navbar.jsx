@@ -1,15 +1,46 @@
 import { NavLink } from "react-router-dom";
 import avatar from "../../assets/Images/avatar.png";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logOutUser } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOutUser()
+      .then(() => {
+        Swal.fire({
+          title: "Log Out Successful",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const navLinks = (
     <>
       <li>
         <NavLink to={"/"}>Home</NavLink>
       </li>
-      <li>
+      {/* <li>
         <NavLink to={"/contact"}>Contact Us</NavLink>
-      </li>
+      </li> */}
       <li>
         <NavLink to={"/dashboard"}>Dashboard</NavLink>
       </li>
@@ -22,6 +53,15 @@ const Navbar = () => {
       <li>
         <NavLink to={"/cart"}>Cart</NavLink>
       </li>
+      {user ? (
+        <li onClick={handleLogOut}>
+          <p>Logout</p>
+        </li>
+      ) : (
+        <li>
+          <NavLink to={"/login"}>LogIn</NavLink>
+        </li>
+      )}
     </>
   );
 
