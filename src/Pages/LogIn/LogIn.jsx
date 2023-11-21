@@ -8,10 +8,11 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const LogIn = () => {
   const captchaRef = useRef(null);
-  const { signInUser } = useContext(AuthContext);
+  const { signInUser, googleSignIn } = useContext(AuthContext);
   const [disable, setDisable] = useState(true);
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -20,6 +21,8 @@ const LogIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
+  const axiosPublic = useAxiosPublic();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -63,6 +66,29 @@ const LogIn = () => {
     } else {
       setDisable(true);
     }
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((res) => {
+        console.log(res.user);
+        const userInfo = {
+          name: res.user.displayName,
+          email: res.user.email,
+        };
+        axiosPublic.post("/users", userInfo).then((res) => {
+          Swal.fire({
+            title: "Congratulation!",
+            text: "Registration Successful!",
+            icon: "success",
+          });
+          navigate(from, { replace: true });
+          console.log(res.data);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -177,6 +203,7 @@ const LogIn = () => {
 
               <div className='mt-3 space-y-3'>
                 <button
+                  onClick={handleGoogleSignIn}
                   type='button'
                   className='relative inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-gray-700 transition-all duration-200 bg-white border-2 border-gray-200 rounded-md hover:bg-gray-100 focus:bg-gray-100 hover:text-black focus:text-black focus:outline-none'
                 >

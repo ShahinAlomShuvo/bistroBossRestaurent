@@ -3,9 +3,12 @@ import avatar from "../../assets/Images/avatar.png";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import { FaShoppingCart } from "react-icons/fa";
+import useCart from "../../Hooks/useCart";
 
 const Navbar = () => {
   const { user, logOutUser } = useContext(AuthContext);
+  const [cart] = useCart();
 
   const handleLogOut = () => {
     logOutUser()
@@ -51,7 +54,12 @@ const Navbar = () => {
         <NavLink to={"/shop/salad"}>Our Shop</NavLink>
       </li>
       <li>
-        <NavLink to={"/cart"}>Cart</NavLink>
+        <NavLink to={"/dashboard/cart"}>
+          <button className='flex gap-2'>
+            <FaShoppingCart size={26} />
+            <div className='badge badge-secondary'>+{cart.length}</div>
+          </button>
+        </NavLink>
       </li>
       {user ? (
         <li onClick={handleLogOut}>
@@ -101,16 +109,19 @@ const Navbar = () => {
           </NavLink>
         </div>
         <div className='navbar-end hidden lg:flex'>
-          <ul className='menu menu-horizontal px-1'>{navLinks}</ul>
+          <ul className='menu menu-horizontal px-1 items-center'>{navLinks}</ul>
           <div className='avatar '>
             <div className='w-10 border-none outline rounded-full'>
-              <img className='w-full' src={avatar} />
+              <img
+                className='w-full'
+                src={`${user ? user?.photoURL : avatar}`}
+              />
             </div>
           </div>
         </div>
         <div className='avatar navbar-end  lg:hidden'>
           <div className='w-10 border-none outline rounded-full'>
-            <img className='w-full' src={avatar} />
+            <img className='w-full' src={`${user ? user?.photoURL : avatar}`} />
           </div>
         </div>
       </div>

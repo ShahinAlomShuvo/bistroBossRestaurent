@@ -22,6 +22,7 @@ const OurShop = () => {
   const saladMenu = menus.filter((items) => items.category === "salad");
   const pizzaMenu = menus.filter((items) => items.category === "pizza");
   const drinksMenu = menus.filter((items) => items.category === "drinks");
+
   return (
     <div>
       <Helmet>
