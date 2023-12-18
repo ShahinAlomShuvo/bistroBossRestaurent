@@ -14,8 +14,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
 
 const DashboardLayout = () => {
-  const isAdmin = useAdmin();
-  console.log(isAdmin);
+  const [isAdmin] = useAdmin();
 
   return (
     <div className='grid grid-cols-4 min-h-screen  text-white'>
@@ -100,11 +99,11 @@ const DashboardLayout = () => {
               </li>
               <li>
                 <NavLink
-                  to={"/dashboard/review"}
+                  to={"/dashboard/paymentHistory"}
                   className='flex gap-2 items-center'
                 >
                   <FaAd size={26} />
-                  Add a Review
+                  Payment History
                 </NavLink>
               </li>
               <li>

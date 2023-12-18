@@ -65,13 +65,15 @@ const AuthProvider = ({ children }) => {
       if (currentUser) {
         axiosPublic.post("/jwt", loggedUser).then((res) => {
           console.log(res.data);
+          setLoading(false);
         });
       } else {
         axiosPublic.get("/logout").then((res) => {
           console.log(res.data);
+          setLoading(false);
         });
       }
-      setLoading(false);
+
       console.log("log in user", currentUser);
     });
     return () => {
